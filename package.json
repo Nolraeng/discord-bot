@@ -1,0 +1,13 @@
+{
+  "name": "discord-announce-bot",
+  "version": "1.0.0",
+  "description": "디스코드 공지 봇",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "deploy": "node deploy-commands.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0"
+  }
+}
