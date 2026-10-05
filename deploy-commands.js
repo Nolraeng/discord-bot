@@ -53,6 +53,10 @@ const commands = [
   {
     name: '티켓',
     description: '티켓 생성 패널을 현재 채널에 전송합니다. (관리자 전용)',
+    options: [
+      { name: '제목', description: '패널 임베드 제목', type: 3, required: false },
+      { name: '내용', description: '패널 임베드 내용', type: 3, required: false },
+    ],
   },
 ];
  
@@ -66,3 +70,5 @@ const rest = new REST({ version: '10' }).setToken(token);
   } catch (err) {
     console.error('❌ 커맨드 등록 오류:', err);
   }
+})();
+ 
