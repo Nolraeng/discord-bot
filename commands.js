@@ -7,6 +7,7 @@ const path = require('path');
  
 const logPath = path.join(__dirname, 'verifylog.json');
 const ticketLogPath = path.join(__dirname, 'ticketlog.json');
+const ticketConfigPath = path.join(__dirname, 'ticketconfig.json');
  
 // ==================== 공지 ====================
 async function 공지(interaction) {
@@ -266,9 +267,14 @@ async function 티켓열기(interaction) {
       ],
     });
  
+    const config = fs.existsSync(ticketConfigPath) ? JSON.parse(fs.readFileSync(ticketConfigPath, 'utf-8')) : {};
+    const guildConfig = config[guild.id] || {};
+    const tTitle = guildConfig.ticketTitle || '🎫 티켓이 생성되었습니다';
+    const tDesc = (guildConfig.ticketDesc || '안녕하세요 {user}님!\n문의 내용을 입력해주세요. 관리자가 곧 답변드릴게요.').replace('{user}', `<@${user.id}>`);
+ 
     const embed = new EmbedBuilder()
-      .setTitle('🎫 티켓이 생성되었습니다')
-      .setDescription(`안녕하세요 <@${user.id}>님!\n문의 내용을 입력해주세요. 관리자가 곧 답변드릴게요.`)
+      .setTitle(tTitle)
+      .setDescription(tDesc)
       .setColor(0x5865f2)
       .setTimestamp();
  
@@ -308,6 +314,8 @@ async function 티켓(interaction) {
  
   const title = interaction.options.getString('제목') || '🎫 티켓 시스템';
   const description = interaction.options.getString('내용') || '아래 버튼을 눌러 문의 티켓을 생성하세요.\n관리자가 확인 후 답변드릴게요.';
+  const ticketTitle = interaction.options.getString('티켓제목') || '🎫 티켓이 생성되었습니다';
+  const ticketDesc = interaction.options.getString('티켓내용') || '안녕하세요 {user}님!\n문의 내용을 입력해주세요. 관리자가 곧 답변드릴게요.';
  
   const embed = new EmbedBuilder()
     .setTitle(title)
@@ -324,6 +332,11 @@ async function 티켓(interaction) {
  
   await interaction.channel.send({ embeds: [embed], components: [row] });
   await interaction.reply({ content: '✅ 티켓 패널을 전송했습니다!', ephemeral: true });
+ 
+  // 티켓 채널 안내 문구 설정 저장
+  const config = fs.existsSync(ticketConfigPath) ? JSON.parse(fs.readFileSync(ticketConfigPath, 'utf-8')) : {};
+  config[interaction.guild.id] = { ticketTitle, ticketDesc };
+  fs.writeFileSync(ticketConfigPath, JSON.stringify(config, null, 2));
 }
  
 // ==================== 티켓 닫기 버튼 처리 ====================
@@ -362,4 +375,3 @@ async function ticketCloseButton(interaction) {
 }
  
 module.exports = { 공지, 버튼인증, 버튼인증로그, verifyButton, 밴, 킥, 타임아웃, 티켓, 티켓열기, ticketCloseButton };
- 
