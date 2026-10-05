@@ -25,6 +25,35 @@ const commands = [
     name: '버튼인증로그',
     description: '인증한 사람들의 목록을 표시합니다.',
   },
+  {
+    name: '밴',
+    description: '유저를 서버에서 밴합니다. (관리자 전용)',
+    options: [
+      { name: '유저', description: '밴할 유저', type: 6, required: true },
+      { name: '사유', description: '밴 사유', type: 3, required: false },
+    ],
+  },
+  {
+    name: '킥',
+    description: '유저를 서버에서 킥합니다. (관리자 전용)',
+    options: [
+      { name: '유저', description: '킥할 유저', type: 6, required: true },
+      { name: '사유', description: '킥 사유', type: 3, required: false },
+    ],
+  },
+  {
+    name: '타임아웃',
+    description: '유저에게 타임아웃을 적용합니다. (관리자 전용)',
+    options: [
+      { name: '유저', description: '타임아웃할 유저', type: 6, required: true },
+      { name: '시간', description: '타임아웃 시간 (분)', type: 4, required: true },
+      { name: '사유', description: '타임아웃 사유', type: 3, required: false },
+    ],
+  },
+  {
+    name: '티켓',
+    description: '티켓 생성 패널을 현재 채널에 전송합니다. (관리자 전용)',
+  },
 ];
  
 const rest = new REST({ version: '10' }).setToken(token);
@@ -37,4 +66,3 @@ const rest = new REST({ version: '10' }).setToken(token);
   } catch (err) {
     console.error('❌ 커맨드 등록 오류:', err);
   }
-})();
