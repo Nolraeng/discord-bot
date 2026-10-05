@@ -306,9 +306,12 @@ async function 티켓(interaction) {
     return interaction.reply({ content: '❌ 관리자만 사용할 수 있습니다.', ephemeral: true });
   }
  
+  const title = interaction.options.getString('제목') || '🎫 티켓 시스템';
+  const description = interaction.options.getString('내용') || '아래 버튼을 눌러 문의 티켓을 생성하세요.\n관리자가 확인 후 답변드릴게요.';
+ 
   const embed = new EmbedBuilder()
-    .setTitle('🎫 티켓 시스템')
-    .setDescription('아래 버튼을 눌러 문의 티켓을 생성하세요.\n관리자가 확인 후 답변드릴게요.')
+    .setTitle(title)
+    .setDescription(description)
     .setColor(0x5865f2)
     .setTimestamp();
  
