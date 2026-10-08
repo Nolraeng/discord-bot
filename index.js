@@ -29,3 +29,4 @@ client.on('interactionCreate', async (interaction) => {
  
 http.createServer((req, res) => res.end('OK')).listen(3000);
 client.login(token);
+ 
