@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-const token = process.env.token;
+const token = '여기에봇토큰';
 const cmd = require('./commands');
 const http = require('http');
  
