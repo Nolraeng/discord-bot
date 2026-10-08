@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-const token = 'MTU1NjE2NzE3MTg3NTI3NDc4Mg.Gt88bE._DeuqS0idr76iDlqaWJnMSvPcQe6BL3_fN2Fsk';
+const token = process.env.token;
 const cmd = require('./commands');
 const http = require('http');
  
@@ -29,4 +29,3 @@ client.on('interactionCreate', async (interaction) => {
  
 http.createServer((req, res) => res.end('OK')).listen(3000);
 client.login(token);
- 
